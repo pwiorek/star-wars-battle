@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+
+@font-face {
+  font-family: 'Star Wars';
+  src: url('assets/fonts/star-wars.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Star Wars Outlined';
+  src: url('assets/fonts/star-wars-outlined.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
