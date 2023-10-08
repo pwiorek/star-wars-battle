@@ -1,0 +1,12 @@
+@use "variables";
+
+@mixin media-query($label) {
+  $min-width: map-get(variables.$breakpoints, $label);
+  @if $min-width {
+    @media screen and (min-width: $min-width) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
