@@ -1,0 +1,39 @@
+@use "mixins";
+
+.resource-selector-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  @include mixins.media-query(laptop) {
+    flex-direction: row;
+  }
+}
+
+button {
+  margin: 10px 30px;
+}
+
+img {
+  height: 150px;
+  color: white;
+
+  &:hover {
+    filter: drop-shadow(3px 0 0 white)
+            drop-shadow(0 3px 0 white)
+            drop-shadow(-3px 0 0 white)
+            drop-shadow(0 -3px 0 white);
+  }
+}
+
+.selected-resource {
+  filter: drop-shadow(3px 0 0 yellow)
+          drop-shadow(0 3px 0 yellow)
+          drop-shadow(-3px 0 0 yellow)
+          drop-shadow(0 -3px 0 yellow);
+
+  &:hover {
+    filter: none;
+  }
+}
