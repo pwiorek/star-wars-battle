@@ -14,8 +14,17 @@
   font-style: normal;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: black;
+  background-image: url("assets/images/background.webp");
+  overflow: hidden;
+}
 
 button {
   @include mixins.button-reset();
