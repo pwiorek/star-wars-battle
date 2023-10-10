@@ -27,5 +27,9 @@ body {
 }
 
 button {
-  @include mixins.button-reset();
+  @include mixins.button-reset;
+}
+
+ul {
+  @include mixins.ul-reset;
 }

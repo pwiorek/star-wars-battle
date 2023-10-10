@@ -1,0 +1,54 @@
+@use 'mixins';
+
+.card {
+  height: auto;
+  width: 280px;
+  transform: scale(1);
+  transition: 0.3s transform;
+
+  @include mixins.media-query(laptop) {
+    height: 350px;
+  }
+
+  &:hover {
+    transform: scale(1.02);
+  }
+}
+
+.card__spec {
+  font-size: 1em;
+  line-height: 1.5em;
+  text-align: center;
+}
+
+mat-card-header {
+  display: flex;
+  justify-content: center;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  font-size: 1.2em;
+  font-family: "Star Wars", serif;
+  border-bottom: 1px solid black;
+}
+
+mat-card-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 20px;
+
+  @include mixins.media-query(laptop) {
+    padding: unset;
+  }
+}
+
+.winning-spec {
+  color: green;
+  font-weight: bold;
+}
+
+.losing-spec {
+  color: red;
+  font-weight: bold;
+}

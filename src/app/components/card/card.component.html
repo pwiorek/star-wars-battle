@@ -1,0 +1,14 @@
+<mat-card class="card">
+  <mat-card-header>{{ resource.name }}</mat-card-header>
+  <mat-card-content>
+    <ul>
+      <li *ngFor="let spec of resourceSpecs"
+          class="card__spec"
+          [ngClass]="{ 'winning-spec': isWinningCard && (spec.key | isInArray: highlightedSpecs),
+                       'losing-spec': !isWinningCard && (spec.key | isInArray: highlightedSpecs) }"
+      >
+        {{ spec.key | snakeCaseToTitleCase }}: {{ spec.value }}
+      </li>
+    </ul>
+  </mat-card-content>
+</mat-card>
