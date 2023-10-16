@@ -35,3 +35,13 @@ app-loading {
   top: 50%;
   transform: translate(-50%, -50%);
 }
+
+.buttons-container {
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+
+  button {
+    margin: auto 20px;
+  }
+}

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, RouterLink } from "@angular/router";
 import { forkJoin, map } from "rxjs";
 
 import { TitleStarWarsBattleComponent } from "@components/title-star-wars-battle/title-star-wars-battle.component";
@@ -12,11 +12,12 @@ import { ResourceService } from "@services/resource.service";
 import { HighlightSpecs } from "@models/highlight-specs.model";
 import { Resources } from "@models/resources.model";
 import { BattleResultComponent } from "@components/battle-result/battle-result.component";
+import { MatButtonModule } from "@angular/material/button";
 
 @Component({
   selector: 'app-game',
   standalone: true,
-  imports: [CommonModule, LoadingComponent, CardComponent, TitleStarWarsBattleComponent, BattleResultComponent,],
+  imports: [CommonModule, LoadingComponent, CardComponent, TitleStarWarsBattleComponent, BattleResultComponent, MatButtonModule, RouterLink,],
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -25,8 +26,8 @@ export class GameComponent {
   private readonly resourceType: ResourceType = this.getResourceTypeFromUrl();
 
   public readonly score$ = this.gameService.getScore$();
-  public player1Resource: Partial<Resource>;
-  public player2Resource: Partial<Resource>;
+  public player1Resource: Partial<Resource> | undefined;
+  public player2Resource: Partial<Resource> | undefined;
   public highlightedCardSpecs: Resources<HighlightSpecs>;
 
   constructor(
@@ -62,5 +63,11 @@ export class GameComponent {
 
     numOfWinningPropsResource1 > numOfWinningPropsResource2 ? this.gameService.addPointForPlayer1()
                                                             : this.gameService.addPointForPlayer2();
+  }
+
+  public playAgain(): void {
+    this.player1Resource = undefined;
+    this.player2Resource = undefined;
+    this.getResources();
   }
 }
