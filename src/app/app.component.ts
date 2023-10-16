@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { GameService } from "./services/game.service";
+
+import { GameService } from "@services/game.service";
 
 @Component({
   selector: 'app-root',

@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ResourceSelectorComponent } from "../../components/resource-selector/resource-selector.component";
-import { MatButtonModule } from "@angular/material/button";
-import { Resource } from "../../utils/types";
-import { Router } from "@angular/router";
 import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
-import { TitleStarWarsBattleComponent } from "../../components/title-star-wars-battle/title-star-wars-battle.component";
+import { MatButtonModule } from "@angular/material/button";
+import { CommonModule } from '@angular/common';
+import { Router } from "@angular/router";
+
+import { TitleStarWarsBattleComponent } from "@components/title-star-wars-battle/title-star-wars-battle.component";
+import { ResourceSelectorComponent } from "@components/resource-selector/resource-selector.component";
+import { Resource } from "@utils/types";
 
 @Component({
   selector: 'app-home',

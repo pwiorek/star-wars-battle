@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { map, mergeMap, Observable, of } from "rxjs";
-import { Creature, CreatureResponse } from "../models/creature.model";
-import { environment } from "../../environments/environment";
-import { Starship, StarshipResponse } from "../models/starship.model";
+
+import { Creature, CreatureResponse } from "@models/creature.model";
+import { Starship, StarshipResponse } from "@models/starship.model";
+import { environment } from "@environment";
 
 @Injectable({
   providedIn: 'root'

@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from "@angular/material/card";
-import { ResourceKey } from "../../utils/types";
-import { Creature } from "../../models/creature.model";
-import { Starship } from "../../models/starship.model";
-import { SnakeCaseToTitleCasePipe } from "../../pipes/snake-case-to-title-case.pipe";
-import { IsInArrayPipe } from "../../pipes/is-in-array.pipe";
+import { SnakeCaseToTitleCasePipe } from "@pipes/snake-case-to-title-case.pipe";
+import { IsInArrayPipe } from "@pipes/is-in-array.pipe";
+import { Creature } from "@models/creature.model";
+import { Starship } from "@models/starship.model";
+import { ResourceKey } from "@utils/types";
 
 @Component({
   selector: 'app-card',

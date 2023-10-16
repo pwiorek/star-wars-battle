@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Resource } from "../../utils/types";
+import { Resource } from "@utils/types";
 
 @Component({
   selector: 'app-resource-selector',

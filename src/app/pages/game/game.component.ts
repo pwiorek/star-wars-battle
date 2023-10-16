@@ -1,15 +1,16 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from "@angular/router";
+import { forkJoin, Observable, of } from "rxjs";
+
+import { TitleStarWarsBattleComponent } from "@components/title-star-wars-battle/title-star-wars-battle.component";
 import { LoadingComponent } from "@components/loading/loading.component";
 import { CardComponent } from "@components/card/card.component";
-import { Creature } from "../../models/creature.model";
-import { Starship } from "../../models/starship.model";
-import { ResourceApiService } from "../../services/resource-api.service";
-import { ActivatedRoute } from "@angular/router";
-import { Resource } from "../../utils/types";
-import { GameService } from "../../services/game.service";
-import { forkJoin, Observable, of } from "rxjs";
-import { TitleStarWarsBattleComponent } from "@components/title-star-wars-battle/title-star-wars-battle.component";
+import { Creature } from "@models/creature.model";
+import { Starship } from "@models/starship.model";
+import { ResourceApiService } from "@services/resource-api.service";
+import { GameService } from "@services/game.service";
+import { Resource } from "@utils/types";
 
 @Component({
   selector: 'app-game',

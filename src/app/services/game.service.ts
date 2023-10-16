@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ResourceApiService } from "./resource-api.service";
 import { BehaviorSubject, finalize, Observable } from "rxjs";
-import { Score } from "../models/score.model";
-import { Creature } from "../models/creature.model";
-import { Starship } from "../models/starship.model";
+import { Score } from "@models/score.model";
+import { Creature } from "@models/creature.model";
+import { Starship } from "@models/starship.model";
 
 @Injectable({
   providedIn: 'root'
