@@ -3,9 +3,8 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from "@angular/material/card";
 import { SnakeCaseToTitleCasePipe } from "@pipes/snake-case-to-title-case.pipe";
 import { IsInArrayPipe } from "@pipes/is-in-array.pipe";
-import { Creature } from "@models/creature.model";
-import { Starship } from "@models/starship.model";
-import { ResourceKey } from "@utils/types";
+import { Resource } from "@utils/types";
+import { HighlightSpecs } from "@models/highlight-specs.model";
 
 @Component({
   selector: 'app-card',
@@ -16,9 +15,8 @@ import { ResourceKey } from "@utils/types";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CardComponent implements OnInit {
-  @Input() resource: Partial<Creature | Starship>;
-  @Input() highlightedSpecs: ResourceKey[] = [];
-  @Input() isWinningCard: boolean;
+  @Input() resource: Partial<Resource>;
+  @Input() highlightedSpecs: HighlightSpecs;
 
   public resourceSpecs: { key: string, value: string | number }[] = []
 
@@ -26,7 +24,7 @@ export class CardComponent implements OnInit {
     this.resourceSpecs = this.mapResourceToSpecs(this.resource);
   }
 
-  private mapResourceToSpecs(resource: Partial<Creature | Starship>): { key: string, value: string | number }[] {
+  private mapResourceToSpecs(resource: Partial<Resource>): { key: string, value: string | number }[] {
     return Object.entries(resource)
       .filter(([key]) => key !== 'name')
       .map(([key, value]) => ({ key, value }));

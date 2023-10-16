@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Resource } from "@utils/types";
+import { ResourceType } from "@utils/types";
 
 @Component({
   selector: 'app-resource-selector',
@@ -11,10 +11,10 @@ import { Resource } from "@utils/types";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ResourceSelectorComponent {
-  @Output() onResourceSelected = new EventEmitter<Resource>();
-  public selectedResource: Resource;
+  @Output() onResourceSelected = new EventEmitter<ResourceType>();
+  public selectedResource: ResourceType;
 
-  public selectResource(resource: Resource): void {
+  public selectResource(resource: ResourceType): void {
     this.onResourceSelected.emit(resource);
     this.selectedResource = resource;
   }

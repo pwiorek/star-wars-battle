@@ -6,7 +6,7 @@ import { Router } from "@angular/router";
 
 import { TitleStarWarsBattleComponent } from "@components/title-star-wars-battle/title-star-wars-battle.component";
 import { ResourceSelectorComponent } from "@components/resource-selector/resource-selector.component";
-import { Resource } from "@utils/types";
+import { ResourceType } from "@utils/types";
 
 @Component({
   selector: 'app-home',
@@ -17,14 +17,14 @@ import { Resource } from "@utils/types";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent {
-  public selectedResource: Resource;
+  public selectedResource: ResourceType;
 
   constructor(
     private router: Router,
     private snackbar: MatSnackBar
   ) {}
 
-  public selectResource(resource: Resource) {
+  public selectResource(resource: ResourceType) {
     this.selectedResource = resource;
   }
 

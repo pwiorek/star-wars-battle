@@ -1,67 +1,66 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from "@angular/router";
-import { forkJoin, Observable, of } from "rxjs";
+import { forkJoin, map } from "rxjs";
 
 import { TitleStarWarsBattleComponent } from "@components/title-star-wars-battle/title-star-wars-battle.component";
 import { LoadingComponent } from "@components/loading/loading.component";
 import { CardComponent } from "@components/card/card.component";
-import { Creature } from "@models/creature.model";
-import { Starship } from "@models/starship.model";
-import { ResourceApiService } from "@services/resource-api.service";
 import { GameService } from "@services/game.service";
-import { Resource } from "@utils/types";
+import { Resource, ResourceType } from "@utils/types";
+import { ResourceService } from "@services/resource.service";
+import { HighlightSpecs } from "@models/highlight-specs.model";
+import { Resources } from "@models/resources.model";
+import { BattleResultComponent } from "@components/battle-result/battle-result.component";
 
 @Component({
   selector: 'app-game',
   standalone: true,
-  imports: [CommonModule, LoadingComponent, CardComponent, TitleStarWarsBattleComponent,],
+  imports: [CommonModule, LoadingComponent, CardComponent, TitleStarWarsBattleComponent, BattleResultComponent,],
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GameComponent {
-  private readonly resourceType: Resource = this.getResourceTypeFromUrl();
+  private readonly resourceType: ResourceType = this.getResourceTypeFromUrl();
 
   public readonly score$ = this.gameService.getScore$();
-  public starship1: Partial<Starship>;
-  public starship2: Partial<Starship>;
+  public player1Resource: Partial<Resource>;
+  public player2Resource: Partial<Resource>;
+  public highlightedCardSpecs: Resources<HighlightSpecs>;
 
   constructor(
     private gameService: GameService,
-    private resourceApi: ResourceApiService,
+    private resourceService: ResourceService,
     private route: ActivatedRoute,
     private cd: ChangeDetectorRef
   ) {
     this.getResources();
   }
 
-  private getResourceTypeFromUrl(): Resource {
+  private getResourceTypeFromUrl(): ResourceType {
     return this.route.snapshot.queryParams['resource'];
-  }
-
-  private getRandomResource(): Observable<Starship | Creature> {
-    if (this.resourceType === 'starship') {
-      return this.resourceApi.getStarship(this.gameService.getRandomStarshipId());
-    }
-
-    if (this.resourceType === 'creature') {
-      return this.resourceApi.getCreature(this.gameService.getRandomCreatureId());
-    }
-
-    return of();
   }
 
   private getResources(): void {
     forkJoin({
-      starship1: this.resourceApi.getStarship(this.gameService.getRandomStarshipId()),
-      starship2: this.resourceApi.getStarship(this.gameService.getRandomStarshipId())
-    }).subscribe(res => {
-      const resources = this.gameService.getResourcesWithCommonProperties({ resource1: res.starship1, resource2: res.starship2 })
-      this.starship1 = resources.resource1;
-      this.starship2 = resources.resource2;
+      resource1: this.resourceService.getRandomResource$(this.resourceType),
+      resource2: this.resourceService.getRandomResource$(this.resourceType)
+    }).pipe(
+      map(({ resource1, resource2 }) => this.resourceService.getResourcesWithCommonProperties({ resource1, resource2 }))
+    ).subscribe(({ resource1, resource2 }) => {
+      this.player1Resource = resource1;
+      this.player2Resource = resource2;
+      this.highlightedCardSpecs = this.resourceService.getWinningLosingSpecs({ resource1, resource2 })
+      this.updateScore(this.highlightedCardSpecs.resource1.winning.length, this.highlightedCardSpecs.resource2.winning.length);
       this.cd.markForCheck();
-    })
+    });
   }
 
+  private updateScore(numOfWinningPropsResource1: number, numOfWinningPropsResource2: number) {
+    if (numOfWinningPropsResource1 === numOfWinningPropsResource2) return;
+
+    numOfWinningPropsResource1 > numOfWinningPropsResource2 ? this.gameService.addPointForPlayer1()
+                                                            : this.gameService.addPointForPlayer2();
+  }
 }

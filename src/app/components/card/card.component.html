@@ -4,8 +4,8 @@
     <ul>
       <li *ngFor="let spec of resourceSpecs"
           class="card__spec"
-          [ngClass]="{ 'winning-spec': isWinningCard && (spec.key | isInArray: highlightedSpecs),
-                       'losing-spec': !isWinningCard && (spec.key | isInArray: highlightedSpecs) }"
+          [ngClass]="{ 'winning-spec': (spec.key | isInArray: highlightedSpecs.winning),
+                       'losing-spec': (spec.key | isInArray: highlightedSpecs.losing) }"
       >
         {{ spec.key | snakeCaseToTitleCase }}: {{ spec.value }}
       </li>
