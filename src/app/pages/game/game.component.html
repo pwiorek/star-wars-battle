@@ -1,0 +1,26 @@
+<section class="game-container">
+  <app-title-star-wars-battle class="title"></app-title-star-wars-battle>
+  <div class="cards-container" *ngIf="starship1 && starship2; else loading">
+    <div class="card-container">
+      <h3>Player 1</h3>
+      <app-card [resource]="starship1"></app-card>
+    </div>
+
+    <div class="score-container" *ngIf="(score$ | async) as score">
+      {{ score.player1 }} : {{ score.player2 }}
+    </div>
+
+    <div class="card-container">
+      <h3>Player 2</h3>
+      <app-card [resource]="starship2"></app-card>
+    </div>
+
+
+  </div>
+
+  <ng-template #loading>
+    <app-loading></app-loading>
+  </ng-template>
+
+
+</section>

@@ -16,19 +16,19 @@ import { IsInArrayPipe } from "../../pipes/is-in-array.pipe";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CardComponent implements OnInit {
-  @Input() resource: Creature | Starship;
+  @Input() resource: Partial<Creature | Starship>;
   @Input() highlightedSpecs: ResourceKey[] = [];
   @Input() isWinningCard: boolean;
 
-  public resourceSpecs: { key: string, value: string }[] = []
+  public resourceSpecs: { key: string, value: string | number }[] = []
 
   ngOnInit(): void {
     this.resourceSpecs = this.mapResourceToSpecs(this.resource);
   }
 
-  private mapResourceToSpecs(resource: Creature | Starship): { key: string, value: string }[] {
+  private mapResourceToSpecs(resource: Partial<Creature | Starship>): { key: string, value: string | number }[] {
     return Object.entries(resource)
-      .filter(([key, _]) => key !== 'name')
+      .filter(([key]) => key !== 'name')
       .map(([key, value]) => ({ key, value }));
   }
 }

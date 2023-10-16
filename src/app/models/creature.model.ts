@@ -2,5 +2,11 @@ export interface Creature {
   name: string;
   height: number;
   mass: number;
-  birth_year: number;
+}
+
+export interface CreatureResponse {
+  name: string;
+  height: string;
+  mass: string;
+  url: string;
 }

@@ -1,0 +1,28 @@
+.game-container {
+  height: 100%;
+}
+
+.score-container {
+  color: yellow;
+  font-family: "Star Wars", serif;
+  font-size: 4em;
+}
+
+.cards-container {
+  margin-top: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-container {
+  margin: auto 100px;
+
+  h3 {
+    font-family: "Star Wars", serif;
+    color: white;
+    font-size: 1.5em;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+}

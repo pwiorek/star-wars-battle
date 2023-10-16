@@ -9,3 +9,16 @@ export interface Starship {
   MGLT: number;
   cargo_capacity: number;
 }
+
+export interface StarshipResponse {
+  name: string;
+  cost_in_credits: string;
+  length: string;
+  crew: string;
+  passengers: string;
+  max_atmosphering_speed: string;
+  hyperdrive_rating: string;
+  MGLT: string;
+  cargo_capacity: string;
+  url: string;
+}
