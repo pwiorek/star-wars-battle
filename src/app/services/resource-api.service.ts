@@ -21,8 +21,7 @@ export class ResourceApiService {
       map(creature => ({
         name: creature.name,
         height: parseInt(creature.height),
-        mass: parseInt(creature.height),
-        birth_year: parseInt(creature.height),
+        mass: parseInt(creature.mass),
       }))
     )
   }

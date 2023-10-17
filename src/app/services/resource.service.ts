@@ -17,8 +17,11 @@ export class ResourceService {
     private resourceApi: ResourceApiService
   ) { }
 
-  private getRandomResourceId(resourceType: ResourceType): number {
+  public getRandomResourceId(resourceType: ResourceType): number {
     const ids = resourceType === 'creature' ? this.creatureIds : this.starshipIds;
+
+    if (ids.length === 0) return -1;
+
     const randomIndex = Math.floor(Math.random() * ids.length);
     return ids[randomIndex];
   }

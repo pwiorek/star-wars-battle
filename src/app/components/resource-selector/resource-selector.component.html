@@ -1,8 +1,14 @@
 <section class="resource-selector-container">
-  <button (click)="selectResource('creature')" [class.selected-resource]="selectedResource === 'creature'">
+  <button
+    (click)="selectResource('creature')"
+    [class.selected-resource]="selectedResource === 'creature'"
+    data-cy="creature-selector-button">
     <img src="/assets/images/resources/creature.png" alt="Selector of creature">
   </button>
-  <button (click)="selectResource('starship')" [class.selected-resource]="selectedResource === 'starship'">
+  <button
+    (click)="selectResource('starship')"
+    [class.selected-resource]="selectedResource === 'starship'"
+    data-cy="starship-selector-button">
     <img src="/assets/images/resources/starship.png" alt="Selector of starship">
   </button>
 </section>

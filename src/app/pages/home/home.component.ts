@@ -7,6 +7,7 @@ import { Router } from "@angular/router";
 import { TitleStarWarsBattleComponent } from "@components/title-star-wars-battle/title-star-wars-battle.component";
 import { ResourceSelectorComponent } from "@components/resource-selector/resource-selector.component";
 import { ResourceType } from "@utils/types";
+import { ResourceService } from "@services/resource.service";
 
 @Component({
   selector: 'app-home',
@@ -21,7 +22,8 @@ export class HomeComponent {
 
   constructor(
     private router: Router,
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar,
+    private resourceService: ResourceService
   ) {}
 
   public selectResource(resource: ResourceType) {
@@ -34,6 +36,15 @@ export class HomeComponent {
       return;
     }
 
+    if (!this.areSomeResourcesFetched(this.selectedResource)) {
+      this.snackbar.open('Resources are not fetched yet... Please wait a moment', '', { duration: 2000 });
+      return;
+    }
+
     this.router.navigate(['game'], { queryParams: { resource: this.selectedResource } });
+  }
+
+  public areSomeResourcesFetched(resourceType: ResourceType): boolean {
+    return this.resourceService.getRandomResourceId(resourceType) !== -1;
   }
 }

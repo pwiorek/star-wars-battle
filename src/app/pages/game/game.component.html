@@ -7,16 +7,18 @@
         <app-card
           [resource]="player1Resource"
           [highlightedSpecs]="highlightedCardSpecs.resource1"
+          data-cy="card-player1"
         />
       </div>
 
       <div>
-        <div class="score-container" *ngIf="(score$ | async) as score">
+        <div class="score-container" *ngIf="(score$ | async) as score" data-cy="score-txt">
           {{ score.player1 }} : {{ score.player2 }}
         </div>
         <app-battle-result
           [player1Resource]="player1Resource"
           [player2Resource]="player2Resource"
+          data-cy="battle-result-txt"
         ></app-battle-result>
       </div>
 
@@ -25,13 +27,14 @@
         <app-card
           [resource]="player2Resource"
           [highlightedSpecs]="highlightedCardSpecs.resource2"
+          data-cy="card-player2"
         />
       </div>
     </div>
 
     <div class="buttons-container">
-      <button mat-raised-button (click)="playAgain()">Play again</button>
-      <a mat-raised-button routerLink="/" >Change resource</a>
+      <button mat-raised-button (click)="playAgain()" data-cy="play-again-button">Play again</button>
+      <a mat-raised-button routerLink="/" data-cy="change-resource-button">Change resource</a>
     </div>
   </ng-container>
 

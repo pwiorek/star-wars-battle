@@ -4,5 +4,10 @@
     <p class="subtitle">Select resource that you want to fight</p>
     <app-resource-selector (onResourceSelected)="selectResource($event)" />
   </div>
-  <button mat-raised-button class="start-game-btn" (click)="navigateToGame()">Enter the battle!</button>
+  <button
+    mat-raised-button
+    class="start-game-btn"
+    (click)="navigateToGame()"
+    data-cy="start-game-btn"
+  >Enter the battle!</button>
 </main>
