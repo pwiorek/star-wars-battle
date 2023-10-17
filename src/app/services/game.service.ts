@@ -14,6 +14,10 @@ export class GameService {
   ) { }
 
   public initGame(): void {
+    /**
+     * Due to the way that API is built (IDs are not ascending and there is no other way to get them) IDs are
+     * fetched on game initialization
+     */
     this.resourceService.getAllResourcesIds();
   }
 

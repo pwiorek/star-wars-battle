@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from "@angular/common/http";
-import { map, mergeMap, Observable, of } from "rxjs";
+import { HttpClient } from "@angular/common/http";
+import { EMPTY, expand, map, Observable } from "rxjs";
 
 import { Creature, CreatureResponse } from "@models/creature.model";
 import { Starship, StarshipResponse } from "@models/starship.model";
 import { environment } from "@environment";
+import { ResourceType } from "@utils/types";
+import { PageResourceResponse } from "@models/page-resource.model";
 
 @Injectable({
   providedIn: 'root'
@@ -42,45 +44,23 @@ export class ResourceApiService {
   }
 
   /**
-   * Workaround to get right ids from API. There are not in ascending order.
+   * Workaround to get the right IDs from API since they are not in ascending order.
    */
-  public getAllCreatureIds(page = 1): Observable<number[]> {
-    const params = new HttpParams({ fromObject: { page }} );
-    return this.http.get<{ next: string, results: CreatureResponse[] }>(`${environment.baseUrl}/people`, { params }).pipe(
-      mergeMap(({ next, results }) => {
-        if (next) {
-          return of(
-            of(results.map(creature => this.getIdFromSWAPIEndpoint(creature.url))),
-            this.getAllCreatureIds(++page)
-          ).pipe(
-            mergeMap(arr => arr),
-          );
-        }
+  public getAllResourceIds(resourceType: ResourceType): Observable<number[]> {
+    const resource = resourceType === 'starship' ? 'starships' : 'people';
+    const url = `${environment.baseUrl}/${resource}/?page=1`;
 
-        return of(results.map(creature => this.getIdFromSWAPIEndpoint(creature.url)))
-      })
+    return this.getResourcesFromUrl(url).pipe(
+      expand(res => {
+        if (res.next) return this.getResourcesFromUrl(res.next);
+        return EMPTY;
+      }),
+      map(res => res.results.map(resource => this.getIdFromSWAPIEndpoint(resource.url)))
     )
   }
 
-  /**
-   * Workaround to get right ids from API. There are not in ascending order.
-   */
-  public getAllStarshipIds(page = 1): Observable<number[]> {
-    const params = new HttpParams({ fromObject: { page } });
-    return this.http.get<{ next: string, results: StarshipResponse[] }>(`${environment.baseUrl}/starships`, { params }).pipe(
-      mergeMap(({ next, results }) => {
-        if (next) {
-          return of(
-            of(results.map(starship => this.getIdFromSWAPIEndpoint(starship.url))),
-            this.getAllStarshipIds(++page)
-          ).pipe(
-            mergeMap(arr => arr)
-          );
-        }
-
-        return of(results.map(starship => this.getIdFromSWAPIEndpoint(starship.url)))
-      })
-    )
+  private getResourcesFromUrl(url: string): Observable<PageResourceResponse> {
+    return this.http.get<PageResourceResponse>(url);
   }
 
   private getIdFromSWAPIEndpoint(url: string): number {

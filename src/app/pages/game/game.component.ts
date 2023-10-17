@@ -48,11 +48,11 @@ export class GameComponent {
       resource1: this.resourceService.getRandomResource$(this.resourceType),
       resource2: this.resourceService.getRandomResource$(this.resourceType)
     }).pipe(
-      map(({ resource1, resource2 }) => this.resourceService.getResourcesWithCommonProperties({ resource1, resource2 }))
+      map(({ resource1, resource2 }) => this.resourceService.getResourcesWithCommonProperties(resource1, resource2))
     ).subscribe(({ resource1, resource2 }) => {
       this.player1Resource = resource1;
       this.player2Resource = resource2;
-      this.highlightedCardSpecs = this.resourceService.getWinningLosingSpecs({ resource1, resource2 })
+      this.highlightedCardSpecs = this.resourceService.getWinningLosingSpecs(resource1, resource2)
       this.updateScore(this.highlightedCardSpecs.resource1.winning.length, this.highlightedCardSpecs.resource2.winning.length);
       this.cd.markForCheck();
     });
@@ -68,6 +68,7 @@ export class GameComponent {
   public playAgain(): void {
     this.player1Resource = undefined;
     this.player2Resource = undefined;
+    this.cd.markForCheck();
     this.getResources();
   }
 }

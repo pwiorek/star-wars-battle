@@ -25,7 +25,7 @@ describe('ResourceService', () => {
       const resource1: Creature = { name: 'Luke Skywalker', height: 172, mass: 77 };
       const resource2: Creature = { name: 'R2-D2', height: 96, mass: NaN };
 
-      const result = service.getResourcesWithCommonProperties({ resource1, resource2 });
+      const result = service.getResourcesWithCommonProperties(resource1, resource2);
 
       expect(result.resource1).toEqual({ name: 'Luke Skywalker', height: 172 });
       expect(result.resource2).toEqual({ name: 'R2-D2', height: 96 });
@@ -56,7 +56,10 @@ describe('ResourceService', () => {
         MGLT: NaN
       };
 
-      const result = service.getResourcesWithCommonProperties({ resource1, resource2 });
+      const result = service.getResourcesWithCommonProperties(resource1, resource2);
+
+      console.log('resource1', resource1)
+      console.log('resource2', resource2)
 
       expect(result.resource1).toEqual({
         name: "Naboo Royal Starship",
@@ -79,7 +82,7 @@ describe('ResourceService', () => {
       const resource1: Creature = { name: 'Luke Skywalker', height: NaN, mass: 77 };
       const resource2: Creature = { name: 'R2-D2', height: 96, mass: NaN };
 
-      const result = service.getResourcesWithCommonProperties({ resource1, resource2 });
+      const result = service.getResourcesWithCommonProperties(resource1, resource2);
 
       expect(result.resource1).toEqual({ name: 'Luke Skywalker' });
       expect(result.resource2).toEqual({ name: 'R2-D2' });
@@ -112,7 +115,7 @@ describe('ResourceService', () => {
         MGLT: NaN
       };
 
-      const result = service.getWinningLosingSpecs({ resource1, resource2 });
+      const result = service.getWinningLosingSpecs(resource1, resource2);
 
       expect(result.resource1).toEqual({ winning: ['crew', 'hyperdrive_rating', 'length'], losing: ['max_atmosphering_speed']});
       expect(result.resource2).toEqual({ winning: ['max_atmosphering_speed'], losing: ['crew', 'hyperdrive_rating', 'length']});
@@ -122,7 +125,7 @@ describe('ResourceService', () => {
       const resource1: Creature = { name: 'Luke Skywalker', height: 96, mass: 77 };
       const resource2: Creature = { name: 'R2-D2', height: 96, mass: 77 };
 
-      const result = service.getWinningLosingSpecs({ resource1, resource2 });
+      const result = service.getWinningLosingSpecs(resource1, resource2);
 
       expect(result.resource1).toEqual({ winning: [], losing: [] });
       expect(result.resource2).toEqual({ winning: [], losing: [] });
@@ -155,7 +158,7 @@ describe('ResourceService', () => {
         MGLT: NaN
       };
 
-      const result = service.getWinningResource({ resource1, resource2 });
+      const result = service.getWinningResource(resource1, resource2);
 
       expect(result).toEqual(resource1);
     })
@@ -164,7 +167,7 @@ describe('ResourceService', () => {
       const resource1: Creature = { name: 'Luke Skywalker', height: 96, mass: 77 };
       const resource2: Creature = { name: 'R2-D2', height: 96, mass: 77 };
 
-      const result = service.getWinningResource({ resource1, resource2 });
+      const result = service.getWinningResource(resource1, resource2);
 
       expect(result).toBeNull();
     })
