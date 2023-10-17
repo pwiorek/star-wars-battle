@@ -2,7 +2,7 @@
   <mat-card-header>{{ resource.name }}</mat-card-header>
   <mat-card-content>
     <ul>
-      <li *ngFor="let spec of resourceSpecs"
+      <li *ngFor="let spec of resourceSpecs; trackBy: trackByKey"
           class="card__spec"
           [ngClass]="{ 'winning-spec': (spec.key | isInArray: highlightedSpecs.winning),
                        'losing-spec': (spec.key | isInArray: highlightedSpecs.losing) }"

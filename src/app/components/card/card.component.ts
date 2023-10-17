@@ -29,4 +29,8 @@ export class CardComponent implements OnInit {
       .filter(([key]) => key !== 'name')
       .map(([key, value]) => ({ key, value }));
   }
+
+  public trackByKey(index: number, item: { key: string, value: string | number }) {
+    return item.key;
+  }
 }
