@@ -44,7 +44,7 @@ export class HomeComponent {
     this.router.navigate(['game'], { queryParams: { resource: this.selectedResource } });
   }
 
-  public areSomeResourcesFetched(resourceType: ResourceType): boolean {
+  private areSomeResourcesFetched(resourceType: ResourceType): boolean {
     return this.resourceService.getRandomResourceId(resourceType) !== -1;
   }
 }

@@ -10,8 +10,8 @@ import { Score } from "@models/score.model";
   providedIn: 'root'
 })
 export class ResourceService {
-  private creatureIds: number[] = [];
-  private starshipIds: number[] = [];
+  private readonly creatureIds: number[] = [];
+  private readonly starshipIds: number[] = [];
 
   constructor(
     private resourceApi: ResourceApiService
